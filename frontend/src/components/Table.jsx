@@ -1,8 +1,8 @@
 // rafc
 import React from 'react'
-import { TableContainer, Th, Thead, Tr} from '../styles/Table'
+import { TableContainer, TBody, Th, Thead, Tr, Td} from '../styles/Table'
 
-export const Table = () => {
+export const Table = ({users}) => {
   return (
     <TableContainer>
         <Thead>
@@ -12,6 +12,17 @@ export const Table = () => {
                 <Th>Editora</Th>
             </Tr>
         </Thead>
+        <TBody>
+          {
+            users.map((item) => (
+              <Tr>
+                <Td>{item.titulo}</Td>
+                <Td>{item.autor}</Td>
+                <Td>{item.editora}</Td>
+              </Tr>
+            ))
+          }
+        </TBody>
     </TableContainer>
   )
 }
