@@ -3,6 +3,8 @@ import { Container } from "./styles/Container"
 import { Form } from "./components/Form"
 import { Table } from './components/Table'
 import axios from 'axios'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const App = () => {
 
@@ -21,10 +23,23 @@ const App = () => {
   }, [setUsers])
   
   return (
+    <>
     <Container>
       <Form/>
       <Table users={users}/>
     </Container>
+      <ToastContainer 
+      position="top-right"
+      autoClose={3000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      theme="light"/>
+    </>
   )
 }
 
