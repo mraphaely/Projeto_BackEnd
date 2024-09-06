@@ -11,8 +11,14 @@ export const TableContainer = styled.table`
 `;
 export const Thead = styled.thead``;
 export const TBody = styled.tbody``;
-export const Tr = styled.tr``;
-export const Th = styled.th``;
+export const Tr = styled.tr`
+
+`;
+
+export const Th = styled.th`
+background-color: #f0f0f0;
+`;
+
 export const Td = styled.td`
       text-align: center;
 `;

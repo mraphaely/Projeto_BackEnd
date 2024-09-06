@@ -14,8 +14,8 @@ export const Table = ({users}) => {
         </Thead>
         <TBody>
           {
-            users.map((item) => (
-              <Tr>
+            users.map((item, i) => (
+              <Tr key={i}>
                 <Td>{item.titulo}</Td>
                 <Td>{item.autor}</Td>
                 <Td>{item.editora}</Td>

@@ -1,5 +1,5 @@
 import { request, response } from "express";
-import db from "../db.js"
+import db from "../db.js";
 
 export const getBooks = (resquest, response) => {
 
@@ -11,7 +11,7 @@ export const getBooks = (resquest, response) => {
     }
     return response.status(200).json(data)
   });
-}
+};
 
 export const addBook = (request, response) => {
   const query = "INSERT INTO books(`titulo`, `autor`, `editora`) VALUES (?)"
@@ -27,4 +27,20 @@ export const addBook = (request, response) => {
      }
      return response.status(200).json({ message: "Livro cadastrado com sucesso!" })
   });
-}
+};
+
+export const deleteBook = (request, response) => {
+  const query = "DELETE FROM books WHERE id = ?"
+  const id = request.params.id
+
+  db.query(query, id, (error) => {
+    if (error) {
+      return response.json(error)
+      }
+      return response.status(200).json({ message: "Livro deletado com sucesso!" })
+  })
+};
+
+export const updateBook = (request, response) => {
+  
+};

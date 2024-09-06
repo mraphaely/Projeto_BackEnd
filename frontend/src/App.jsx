@@ -12,7 +12,7 @@ const App = () => {
   
   const getUsers = async () => {
     try{
-      const response = await axios.get("http://localhost:3001")
+      const response = await axios.get("http://localhost:3333")
       setUsers(response.data.sort((a, b) => (a.titulo > b.titulo ? 1 : -1 )))
     } catch {
       console.log(error)
