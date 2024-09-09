@@ -21,4 +21,17 @@ background-color: #f0f0f0;
 
 export const Td = styled.td`
       text-align: center;
+
 `;
+
+export const ButtonDel = styled.button`
+  padding: 5px;
+  background-color: purple;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  &:hover {
+      background-color: red;
+      }
+`

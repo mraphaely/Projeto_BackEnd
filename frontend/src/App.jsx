@@ -8,25 +8,25 @@ import 'react-toastify/dist/ReactToastify.css'
 
 const App = () => {
 
-  const [users, setUsers] = React.useState([])
+  const [books, setBooks] = React.useState([])
   
-  const getUsers = async () => {
+  const getBooks = async () => {
     try{
       const response = await axios.get("http://localhost:3333")
-      setUsers(response.data.sort((a, b) => (a.titulo > b.titulo ? 1 : -1 )))
+      setBooks(response.data.sort((a, b) => (a.titulo > b.titulo ? 1 : -1 )))
     } catch {
       console.log(error)
     }
   }
   React.useEffect(() => {
-    getUsers();
-  }, [setUsers])
+    getBooks();
+  }, [setBooks])
   
   return (
     <>
     <Container>
       <Form/>
-      <Table users={users}/>
+      <Table books={books}/>
     </Container>
       <ToastContainer 
       position="top-right"
