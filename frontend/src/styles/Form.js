@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const FormContainer = styled.form`
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
   flex-wrap: wrap;
   padding: 20px;
@@ -10,7 +11,7 @@ export const FormContainer = styled.form`
   border-radius: 5px;
 `
 export const Label = styled.label`
-  font-size: 36px;
+  font-size: 28px;
 `
 
 export const Input = styled.input`
@@ -22,9 +23,15 @@ export const Input = styled.input`
 `
 export const Button = styled.button`
   padding: 10px;
+  height: 40px;
+  width: 90px;
+  font-size: 10px;
   background-color: purple;
   color: #fff;
   border: none;
   cursor: pointer;
   border-radius: 5px;
+  &:hover {
+      background-color: green;
+      }
 `

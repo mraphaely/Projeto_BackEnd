@@ -1,10 +1,11 @@
 // rafc
-import { TableContainer, TBody, Th, Thead, Tr, Td, ButtonDel } from '../styles/Table'
+import { TableContainer, TBody, Th, Thead, Tr, Td, Button } from '../styles/Table'
 import axios from "axios";
-import React from 'react';
+import React, { useRef } from 'react';
 import { toast } from 'react-toastify';
 
-export const Table = ({ books }) => {
+export const Table = ({ books, setUpdate }) => {
+
 
   const deleteRow = async (id) => {
     await axios.delete(`http://localhost:3333/${id}`)
@@ -15,10 +16,15 @@ export const Table = ({ books }) => {
         toast.error("Não foi possível excluir o registro!")
       })
   }
+  const handleUpdate = (item) => {
+    setUpdate(item)
+  }
+
   return (
     <TableContainer>
       <Thead>
         <Tr>
+          <Th></Th>
           <Th></Th>
           <Th>Título</Th>
           <Th>Autor(a)</Th>
@@ -28,7 +34,8 @@ export const Table = ({ books }) => {
       <TBody >
         {books.map((item, i) => (
           <Tr key={i}>
-            <Td><ButtonDel onClick={() => deleteRow(item.id)}>Del</ButtonDel></Td>
+            <Td><Button onClick={() => deleteRow(item.id)}>DELETE</Button></Td>
+            <Td><Button onClick={() => handleUpdate(item)}>UPDATE</Button></Td>
             <Td>{item.titulo}</Td>
             <Td>{item.autor}</Td>
             <Td>{item.editora}</Td>

@@ -21,11 +21,15 @@ background-color: #f0f0f0;
 
 export const Td = styled.td`
       text-align: center;
+      padding: 10px;
 
 `;
 
-export const ButtonDel = styled.button`
-  padding: 5px;
+export const Button = styled.button`
+  padding: 8px;
+  height: auto;
+  width: 70px;
+  font-size: 10px;
   background-color: purple;
   color: #fff;
   border: none;
