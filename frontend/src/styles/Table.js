@@ -7,6 +7,8 @@ export const TableContainer = styled.table`
    border-radius: 5px;
    margin: 20px auto;
    word-break: break-all;
+   backdrop-filter: blur(5px);
+   color: #fff;
 
 `;
 export const Thead = styled.thead``;
@@ -16,7 +18,9 @@ export const Tr = styled.tr`
 `;
 
 export const Th = styled.th`
-background-color: #f0f0f0;
+background-color: purple;
+backdrop-filter: blur(5px);
+color: #fff;
 `;
 
 export const Td = styled.td`

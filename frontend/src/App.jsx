@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container } from "./styles/Container"
+import { Container, ContainerPrinc } from "./styles/Container"
 import { Form } from "./components/Form"
 import { Table } from './components/Table'
 import axios from 'axios'
@@ -27,10 +27,12 @@ const App = () => {
 
   return (
     <>
+    <ContainerPrinc>
     <Container>
       <Form update={update} setUpdate={setUpdate}/>
       <Table books={books} setUpdate={setUpdate}/>
     </Container>
+    </ContainerPrinc>
       <ToastContainer 
       position="top-right"
       autoClose={3000}
