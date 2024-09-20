@@ -1,0 +1,27 @@
+Estrutura básica de um produto:
+
+id: Identificador único do produto.
+nome: Nome do produto (obrigatório).
+preco: Preço do produto (obrigatório).
+descricao: Descrição do produto (opcional).
+estoque: Quantidade em estoque (obrigatório, por padrão 0).
+total: Valor total de produtos de acordo com preço * estoque. (Obrigatório)
+
+
+
+Funcionalidades da API:
+
+Visualizar todos os produtos
+Visualizar um produto específico
+Adicionar um novo produto
+Atualizar um produto
+Excluir um produto
+
+
+
+Endpoints:
+
+GET: produtos/
+POST: produtos/
+PUT: produtos/:id
+DELETE: produtos/:id
