@@ -1,20 +1,18 @@
 import conn from "../config/conn.js";
 import { DataTypes } from "sequelize";
-import byCrypt from 'bcrypt'
+import bcrypt from "bcrypt";
 
-const Users = conn.define("users", {
-    id: {
+const Users = conn.define("users",{
+    id:{
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true
     },
-
     username: {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true
     },
-
     email: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -23,31 +21,29 @@ const Users = conn.define("users", {
             isEmail: true
         }
     },
-
     password: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: false
     }
-});
+})
 
-Users.beforeCreate( async (user) => {
-    const salt = await byCrypt.genSalt(10);
-    user.password = await byCrypt.hash(user.password, salt);
-    
-});
+Users.beforeCreate(async (user)=>{
+    const salt = await bcrypt.genSalt(10)
+    user.password = await bcrypt.hash(user.password, salt)
+})
 
-const syncDataBase = async () => {
-    try {
+const syncDatabase = async () => {
+    try{
         await conn.authenticate();
-        console.log("Successfully established connection dataBase!");
+        console.log("Conexão estabelecida com sucesso!")
 
         await Users.sync();
-        console.log("User table created successfully!")
-    } catch (error) {
-        console.log("Error connecting to the table!", error);
+        console.log("Tabela de usuários criada com sucesso!")
+    }catch(error){
+        console.error("Erro ao criar a tabela!", error)
     }
 }
 
-syncDataBase();
+syncDatabase();
 
 export default Users;

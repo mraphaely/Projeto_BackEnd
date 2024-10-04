@@ -1,22 +1,31 @@
-import express from 'express';
-import cors from 'cors';
-import conn from './config/conn.js';
-import router from './router/user-router.js';
+import express from "express";
+import cors from "cors";
+import conn from "./config/conn.js";
+import authRouter from "./router/authRouter.js"
+import dotenv from "dotenv"
+import userRouter from "./router/userRouter.js";
 
-const PORT = 3693;
+const port = 3000;
 const app = express();
 
+dotenv.config();
+
 app.use(cors());
-app.use(express.urlencoded( {extended: true} ));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.use('/', router);
+// Não precisa está autenticado para navegar nessa rota
+app.use("/", userRouter)
+
+// Precisa estar autenticado
+app.use("/auth", authRouter)
+
 
 conn
-   .sync()
-   .then(() => {
-    app.listen(PORT, () => {
-        console.log(`Server is running on http://localhost:${PORT}`);
+  .sync()
+  .then(() => {
+    app.listen(port, () => {
+      console.log(`Disponível em http://localhost:${port}`);
     });
-   })
-   .catch((error) => console.log(error));
+  })
+  .catch((error) => console.log(error));
