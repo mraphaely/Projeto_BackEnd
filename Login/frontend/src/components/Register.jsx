@@ -33,7 +33,7 @@ export const Register = () => {
                     value={username}
                     placeholder='Nome'
                     onChange={(event) => setUsername(event.target.value)} />
-                <br />
+    
 
                 <label>Email:</label>
                 <input
@@ -41,7 +41,6 @@ export const Register = () => {
                     value={email}
                     placeholder='Email'
                     onChange={(event) => setEmail(event.target.value)} />
-                <br />
 
                 <label>Senha:</label>
                 <input
@@ -49,7 +48,6 @@ export const Register = () => {
                     value={password}
                     placeholder='Senha'
                     onChange={(event) => setPassword(event.target.value)} />
-                <br />
 
                 <button type='submit'>Cadastrar</button>
             </form>
