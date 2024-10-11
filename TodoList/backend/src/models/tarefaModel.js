@@ -14,7 +14,7 @@ const Tarefa = conn.define("tarefas", {
         type: DataTypes.STRING,
         allowNull: false
     },
-    decricao: {
+    descricao: {
         type: DataTypes.TEXT,
     },
     status: {
