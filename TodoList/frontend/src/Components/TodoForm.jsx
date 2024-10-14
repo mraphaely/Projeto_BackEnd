@@ -7,7 +7,7 @@ const TodoForm = () => {
   const [tarefa, setTarefa] = React.useState(''); 
   const [descricao, setDescricao] = React.useState(null); 
   const [message, setMessage] = React.useState(null); 
-  const [loading, setLoading] = React.useState(''); 
+  const [loading, setLoading] = React.useState(null); 
    
   const HandlePost = async (event) => {
 
@@ -29,7 +29,7 @@ const TodoForm = () => {
 
   return (
     <Form onSubmit={HandlePost}>
-    <Form.Group className="mb-3" controlId="">
+    <Form.Group className="mb-3" controlId="tarefa">
       <Form.Label>Título:</Form.Label>
       <Form.Control 
       type="text" 
@@ -39,7 +39,7 @@ const TodoForm = () => {
       required/>
     </Form.Group>
 
-    <Form.Group className="mb-3" controlId="">
+    <Form.Group className="mb-3" controlId="descricao">
       <Form.Label>Descrição:</Form.Label>
       <Form.Control 
       type="textarea" 
