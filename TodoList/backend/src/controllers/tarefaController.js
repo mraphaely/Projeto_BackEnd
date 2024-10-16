@@ -112,7 +112,11 @@ export const updateStatusTarefa = async (request, response) => {
             //att para pendente
             await Tarefa.update({ status: 'pendente' }, { where: { id } });
         };
-        const tarefaAtualizada = await Tarefa.findByPk(id);
+        // const tarefaAtualizada = await Tarefa.findByPk(id);
+        const tarefaAtualizada = await Tarefa.findOne({
+            where: { id },
+            attributes: ["id", "tarefa","status"],
+        });
         response.status(200).json(tarefaAtualizada);
     } catch (error) {
         console.log(error);
