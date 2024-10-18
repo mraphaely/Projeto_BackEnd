@@ -1,4 +1,4 @@
-import { request, response, Router } from "express";
+import { Router } from "express";
 import { create, deleteTarefa, getAll, getTarefa, getTarefaStatus, updateStatusTarefa, updateTarefa } from "../controllers/tarefaController.js";
 
 const router = Router();

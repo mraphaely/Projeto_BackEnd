@@ -16,6 +16,19 @@ const idSchema = z.object({
     id: z.string().uuid({ message: 'ID inválido' })
 });
 
+//validar update
+const updateSchema = z.object({
+    tarefa:
+        z.string()
+            .min(3, { message: "A tarefa deve conter pelo menos 3 caracteres" })
+            .max(255, { message: "A tarefa deve conter no máximo 255 caracteres" }),
+    status: z.enum(["pendente", "concluída"]),
+});
+
+const situacaoSchema = z.object({
+    situacao: z.enum(["pendente", "concluída"])
+});
+
 //POST -> criar
 export const create = async (request, response) => {
     const createValidation = createSchema.safeParse(request.body);
@@ -67,7 +80,7 @@ export const getAll = async (request, response) => {
     }
 };
 
-//GET -> tarefa por id
+//GET -> pegar tarefa por id
 export const getTarefa = async (request, response) => {
     const idValidation = idSchema.safeParse(request.params);
     if (!idValidation.success) {
@@ -88,10 +101,43 @@ export const getTarefa = async (request, response) => {
     }
 };
 
+//PUT -> mod tarefa
 export const updateTarefa = async (request, response) => {
-    response.status(200).json("Chegou no controlador");
-}
+    const idValidation = idSchema.safeParse(request.params);
+    if (!idValidation.success) {
+        return response.status(400).json({ message: idValidation.error });
+    };
 
+    const id = idValidation.data.id;
+
+    const updateValidation = updateSchema.safeParse(request.body);
+    if (!updateValidation.success) {
+        return response.status(400).json({ message: updateValidation.error });
+    };
+
+    const { tarefa, status } = updateValidation.data;
+    const descricao = request.body.descricao || "";
+
+    const tarefaAtualizada = {
+        tarefa,
+        descricao,
+        status
+    };
+    try {
+        const [numAffectedRow] = await Tarefa.update(tarefaAtualizada, {
+            where: { id },
+        });
+        if (numAffectedRow <= 0) {
+            return response.status(404).json({ message: "Tarefa não encontrada" });
+        }
+        response.status(200).json({ message: "Tarefa atualizada com sucesso" });
+    } catch (error) {
+        console.log(error);
+        response.status(500).json({ message: "Erro ao atualizar tarefa" });
+    }
+};
+
+//PATCH -> mod status da tarefa
 export const updateStatusTarefa = async (request, response) => {
     const idValidation = idSchema.safeParse(request.params);
     if (!idValidation.success) {
@@ -115,7 +161,7 @@ export const updateStatusTarefa = async (request, response) => {
         // const tarefaAtualizada = await Tarefa.findByPk(id);
         const tarefaAtualizada = await Tarefa.findOne({
             where: { id },
-            attributes: ["id", "tarefa","status"],
+            attributes: ["id", "tarefa", "status"],
         });
         response.status(200).json(tarefaAtualizada);
     } catch (error) {
@@ -125,10 +171,22 @@ export const updateStatusTarefa = async (request, response) => {
 };
 
 export const getTarefaStatus = async (request, response) => {
-    response.status(200).json("Chegou no controlador");
-}
+    const situacaoValidation = situacaoSchema.safeParse(request.params);
+    if (!situacaoValidation.success) {
+        return response.status(400).json({ error: situacaoValidation.error });
+    }
+    const { situacao } = situacaoValidation.data;
 
-//DEL -> tarefa por id 
+    try {
+        const tarefas = await Tarefa.findAll({ where: { status: situacao } });
+        response.status(200).json(tarefas);
+    } catch (error){
+        console.log(error);
+        response.status(500).json({ message: "Erro ao buscar tarefas por situação" });
+    }
+};
+
+//DELETE -> del tarefa por id 
 export const deleteTarefa = async (request, response) => {
     const idValidation = idSchema.safeParse(request.params);
     if (!idValidation.success) {
