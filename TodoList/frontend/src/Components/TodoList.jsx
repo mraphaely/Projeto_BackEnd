@@ -11,7 +11,7 @@ const TodoList = () => {
       const HandleGetList = async () => {
          try {
             const response = await axios.get('http://localhost:3333/api/tarefas');
-            setTarefas(response.data)
+            setTarefas(response.data.tarefas)
          } catch {
             console.log('Não foi possível obter os dados!')
          }
