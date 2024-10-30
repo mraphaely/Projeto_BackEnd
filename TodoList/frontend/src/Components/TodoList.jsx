@@ -31,6 +31,7 @@ const TodoList = () => {
 };
 
     return (
+        <>
         <Table striped bordered hover>
             <thead>
                 <tr>
@@ -47,12 +48,15 @@ const TodoList = () => {
                     <td>{tarefa.descricao}</td>
                     <td>{tarefa.status}</td>
                     <td>
-                        <span><BsFillTrash3Fill onClick={() => HandleDelete()}/></span>
+                        <button><BsFillTrash3Fill onClick={() => HandleDelete()}/></button>
+                        <button>Editar</button>
                     </td>
                 </tr>
             </tbody>
             ))}
         </Table>
+        <EditForm/>
+        </>
     )
 }
 
