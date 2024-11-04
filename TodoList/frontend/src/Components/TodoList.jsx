@@ -2,24 +2,29 @@ import axios from 'axios';
 import React from 'react';
 import Table from 'react-bootstrap/Table';
 import { BsFillTrash3Fill } from "react-icons/bs";
+import EditForm from './editForm';
 
-const TodoList = () => {
+const TodoList = ({ tarefas, setTarefas }) => {
 
-    const [tarefas, setTarefas] = React.useState([]);
+    const [show, setShow] = React.useState(false);
+    const [onEdit, setOnEdit] = React.useState(null);
 
-    React.useEffect(() => {
-      const HandleGetList = async () => {
-         try {
-            const response = await axios.get('http://localhost:3333/api/tarefas');
-            setTarefas(response.data.tarefas)
-         } catch {
-            console.log('Não foi possível obter os dados!')
-         }
-      }
-      HandleGetList();
-    }, []);
+    const handleEdit = (tarefa) => {
+        setOnEdit(tarefa);
+        setShow(true);
+    }
 
-    console.log(tarefas);
+    const handleSubmitEdit = async (editedTarefa) => {
+        try {
+            await axios.put(`http://localhost:3333/api/tarefas/${editedTarefa.id}`, editedTarefa)
+            setTarefas((prevTarefas) => prevTarefas.map(
+                (tarefa) => tarefa.id === editedTarefa.id ? editedTarefa : tarefa));
+            
+            setShow(false)
+        } catch (error) {
+            console.error("Erro ao atualizar a tarefa", error)
+        }
+    }
 
     const HandleDelete = async (id) => {
         try {
@@ -48,14 +53,17 @@ const TodoList = () => {
                     <td>{tarefa.descricao}</td>
                     <td>{tarefa.status}</td>
                     <td>
-                        <button><BsFillTrash3Fill onClick={() => HandleDelete()}/></button>
-                        <button>Editar</button>
+                        <button><BsFillTrash3Fill onClick={() => HandleDelete(tarefa.id)}/></button>
+                        <button onClick={() => handleEdit(tarefa)}>Editar</button>
                     </td>
                 </tr>
             </tbody>
             ))}
         </Table>
-        <EditForm/>
+        <EditForm
+        show={show}
+        handleClose={() => setShow(false)}
+        tarefa={onEdit}/>
         </>
     )
 }

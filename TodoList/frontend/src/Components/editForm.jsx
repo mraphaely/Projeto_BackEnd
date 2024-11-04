@@ -1,30 +1,58 @@
-import { useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
+import React from 'react';
+import { Button, Modal, Form } from 'react-bootstrap';
 
-function EditForm() {
-  const [show, setShow] = useState(false);
+const EditForm = ({show, handleClose, tarefa}) => {
+  // const [show, setShow] = useState(false);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  // const handleClose = () => setShow(false);
+  // const handleShow = () => setShow(true);
+  const ref = React.useRef();
+
+  React.useEffect(() => {
+    if(tarefa){
+      const form = ref;
+      form.tarefa.value = tarefa.tarefa
+      form.descricao.value = tarefa.descricao
+    }
+  }, [tarefa]);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const form = ref;
+
+    handleEdit({
+      ...tarefa,
+      tarefa: form.tarefa.value,
+      descricao: form.descricao.value
+    });
+
+    handleClose();
+  }
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
-        Launch demo modal
-      </Button>
-
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Modal heading</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Woohoo, you are reading this text in a modal!</Modal.Body>
+        <Modal.Body>
+          <Form onSubmit={handleSubmit}>
+            <Form.Group controlId="tarefaEdit">
+              <Form.Label>Tarefa:</Form.Label>
+              <Form.Control/>
+            </Form.Group>
+            <Form.Group controlId="descricaoEdit">
+              <Form.Label>Descrição:</Form.Label>
+              <Form.Control/>
+            </Form.Group>
+          </Form>
+        </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
-            Close
+            Fechar
           </Button>
           <Button variant="primary" onClick={handleClose}>
-            Save Changes
+            Salvar Alterações
           </Button>
         </Modal.Footer>
       </Modal>
