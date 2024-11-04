@@ -9,7 +9,7 @@ const Empresa = conn.define("empresa", {
     imagem: {
         type: DataTypes.STRING,
         allowNull: false
-    },
+    }
 });
 
 export default Empresa
